@@ -41,7 +41,9 @@ class IntroLoginScreen extends StatelessWidget {
                     splashColor: Colors.white,
                     child: Container(
                       height: MediaQuery.of(context).size.height / 11,
-                      width: MediaQuery.of(context).size.width / 1.2,
+                      width: MediaQuery.of(context).size.width > 600
+                          ? MediaQuery.of(context).size.width / 5
+                          : MediaQuery.of(context).size.width / 2,
                       decoration: BoxDecoration(
                         color: Colors.blue,
                         borderRadius: BorderRadius.circular(6),

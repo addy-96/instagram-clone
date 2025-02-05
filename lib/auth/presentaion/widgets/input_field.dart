@@ -11,13 +11,14 @@ class InputField extends StatelessWidget {
   final String inputHintText;
   final TextEditingController textEditingController;
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(bottom: 10, left: 10, top: 8),
       height: 60,
-      width: double.infinity,
+      width: MediaQuery.of(context).size.width > 550
+          ? MediaQuery.of(context).size.width / 4
+          : double.infinity,
       decoration: BoxDecoration(
         border: Border.all(width: 1, color: lightGrey.withOpacity(0.7)),
         gradient: LinearGradient(

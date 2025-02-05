@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:insta_clone/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:insta_clone/auth/data/repositories/auth_repository_impl.dart';
+import 'package:insta_clone/auth/domain/usecase/login_usecase.dart';
 import 'package:insta_clone/auth/domain/usecase/signUp_usecase.dart';
 import 'package:insta_clone/auth/presentaion/bloc/auth_bloc.dart';
 import 'package:insta_clone/auth/presentaion/pages/intro_login_screen.dart';
+import 'package:insta_clone/core/common/shared/colors.dart';
+import 'package:insta_clone/core/common/shared_fun/txtstyl.dart';
 import 'package:insta_clone/dependencies.dart';
+import 'package:insta_clone/wrapper.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -21,6 +25,13 @@ void main() async {
       providers: [
         BlocProvider(
           create: (context) => AuthBloc(
+            loginUsecase: LoginUsecase(
+              authRepository: AuthRepositoryImpl(
+                authRemoteDatasource: AuthRemoteDatasourceImpl(
+                  supabase: Supabase.instance,
+                ),
+              ),
+            ),
             signupUsecase: SignupUsecase(
               authRepository: AuthRepositoryImpl(
                 authRemoteDatasource: AuthRemoteDatasourceImpl(
@@ -44,6 +55,34 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const IntroLoginScreen();
+    return SafeArea(
+      child: StreamBuilder(
+        stream: Supabase.instance.client.auth.onAuthStateChange,
+        builder: (context, snapshot) {
+          final authState = snapshot.data;
+
+          if (authState == null) {
+            return Center(
+              child: Column(
+                children: [
+                  const CircularProgressIndicator(),
+                  Text(
+                    'Trying to connect to internet.......',
+                    style: txtStyle(15, themeBlue),
+                  )
+                ],
+              ),
+            );
+          } else {
+            final session = authState.session;
+
+            if (session != null) {
+              return const Wrapper();
+            }
+            return const IntroLoginScreen();
+          }
+        },
+      ),
+    );
   }
 }

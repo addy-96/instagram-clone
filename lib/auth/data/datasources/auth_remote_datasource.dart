@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:insta_clone/core/errors/server_exception.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -10,7 +9,7 @@ abstract interface class AuthRemoteDatasource {
     required String password,
   });
 
-  Future<String?> logUserIn({
+  Future<String> logUserIn({
     required String email,
     required String password,
   });
@@ -19,13 +18,35 @@ abstract interface class AuthRemoteDatasource {
 }
 
 class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
-  AuthRemoteDatasourceImpl({required this.supabase});
+  AuthRemoteDatasourceImpl({
+    required this.supabase,
+  
+  });
 
   final Supabase supabase;
+
   @override
-  Future<String> logUserIn({required String email, required String password}) {
-    // TODO: implement logUserIn
-    throw UnimplementedError();
+  Future<String> logUserIn(
+      {required String email, required String password}) async {
+    try {
+      final res = await supabase.client.auth.signInWithPassword(
+        password: password,
+        email: email,
+      );
+
+      log('${res.hashCode}');
+
+      if (res.user == null) {
+        throw ServerException(message: 'Authentication Failed!');
+      }
+      log('${res.user!.id} Signed Up');
+
+
+
+      return res.user!.id;
+    } on ServerException catch (err) {
+      throw ServerException(message: err.toString());
+    }
   }
 
   @override
@@ -55,7 +76,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       log('${res.user!.id} Signed Up');
       return res.user!.id;
     } on ServerException catch (err) {
-      return err.toString();
+      throw ServerException(message: err.message);
     }
   }
 }

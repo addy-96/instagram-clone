@@ -29,4 +29,22 @@ class AuthRepositoryImpl implements AuthRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, String>> logUserIn(
+      String email, String password) async {
+    try {
+      final res = await authRemoteDatasource.logUserIn(
+        email: email,
+        password: password,
+      );
+      return right(res);
+    } catch (err) {
+      return left(
+        Failure(
+          message: err.toString(),
+        ),
+      );
+    }
+  }
 }

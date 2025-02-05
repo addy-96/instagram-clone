@@ -26,4 +26,4 @@ today I create the login and signup page
 29-01-2025 
 two errors yet - 
 1 - depenedncies not working
-supabase signuup error
+supabase signuUp error

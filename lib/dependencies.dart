@@ -1,7 +1,9 @@
+
 import 'package:get_it/get_it.dart';
 import 'package:insta_clone/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:insta_clone/auth/data/repositories/auth_repository_impl.dart';
 import 'package:insta_clone/auth/domain/repositories/auth_repository.dart';
+import 'package:insta_clone/auth/domain/usecase/login_usecase.dart';
 import 'package:insta_clone/auth/domain/usecase/signup_usecase.dart';
 import 'package:insta_clone/auth/presentaion/bloc/auth_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -12,12 +14,20 @@ Future<void> initDependicies() async {
   servicelocator.registerLazySingleton(
     () => Supabase.instance,
   );
+
+
   authInit();
 }
 
 void authInit() {
   servicelocator.registerLazySingleton(
     () => SignupUsecase(
+      authRepository: servicelocator(),
+    ),
+  );
+
+  servicelocator.registerLazySingleton(
+    () => LoginUsecase(
       authRepository: servicelocator(),
     ),
   );
@@ -30,6 +40,7 @@ void authInit() {
 
   servicelocator.registerLazySingleton<AuthRemoteDatasource>(
     () => AuthRemoteDatasourceImpl(
+   
       supabase: servicelocator(),
     ),
   );
@@ -38,6 +49,7 @@ void authInit() {
   servicelocator.registerFactory<AuthBloc>(
     () => AuthBloc(
       signupUsecase: servicelocator(),
+      loginUsecase: servicelocator(),
     ),
   );
 }
