@@ -119,131 +119,136 @@ class _SignUpScreenState extends State<SignUpScreen> {
           }
           return SingleChildScrollView(
             child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/logo.png',
-                    color: Colors.black.withOpacity(0.9),
-                    scale: 18,
-                  ),
-                  const Gap(10),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 17, right: 17),
-                    child: Column(
-                      children: [
-                        InputField(
-                          inputHintText: 'Username',
-                          textEditingController: usernameController,
-                        ),
-                        const Gap(15),
-                        InputField(
-                          inputHintText: 'Email',
-                          textEditingController: emailController,
-                        ),
-                        /* const Gap(15),
-                          const InputField(
-                            inputHintText: 'Phone Number',
-                          ), */
-                        const Gap(15),
-                        InputField(
-                          inputHintText: 'Password',
-                          textEditingController: passwordController,
-                        ),
-                        const Gap(18),
-                        /*  Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              GestureDetector(
-                                onTap: () {},
-                                child: Text(
-                                  'Forgot Password?',
-                                  style: txtStyle(15, Colors.blue).copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ), */
-                        const Gap(20),
-                        InkWell(
-                          enableFeedback: true,
-                          splashColor: Colors.white,
-                          hoverColor: Colors.green,
-                          onTap: () {
-                            onSignUp();
-                          },
-                          child: Container(
-                            height: MediaQuery.of(context).size.height / 12,
-                            width: MediaQuery.of(context).size.width / 1,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 17, 148, 255),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Sign up',
-                                style: txtStyle(
-                                  18,
-                                  Colors.white,
-                                ).copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width > 600
+                    ? MediaQuery.of(context).size.width / 3
+                    : double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/logo.png',
+                      color: Colors.black.withOpacity(0.9),
+                      scale: 18,
+                    ),
+                    const Gap(10),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 17, right: 17),
+                      child: Column(
+                        children: [
+                          InputField(
+                            inputHintText: 'Username',
+                            textEditingController: usernameController,
                           ),
-                        ),
-                        const Gap(30),
-                        /* GestureDetector(
-                            onTap: () {},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                          const Gap(15),
+                          InputField(
+                            inputHintText: 'Email',
+                            textEditingController: emailController,
+                          ),
+                          /* const Gap(15),
+                            const InputField(
+                              inputHintText: 'Phone Number',
+                            ), */
+                          const Gap(15),
+                          InputField(
+                            inputHintText: 'Password',
+                            textEditingController: passwordController,
+                          ),
+                          const Gap(18),
+                          /*  Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                const Icon(
-                                  Icons.facebook_sharp,
-                                  color: Colors.blue,
-                                ),
-                                const Gap(8),
-                                Text(
-                                  'Log in with Facebook',
-                                  style: txtStyle(18, Colors.blue).copyWith(
-                                    fontWeight: FontWeight.bold,
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: Text(
+                                    'Forgot Password?',
+                                    style: txtStyle(15, Colors.blue).copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ],
+                            ), */
+                          const Gap(20),
+                          InkWell(
+                            enableFeedback: true,
+                            splashColor: Colors.white,
+                            hoverColor: Colors.green,
+                            onTap: () {
+                              onSignUp();
+                            },
+                            child: Container(
+                              height: MediaQuery.of(context).size.height / 12,
+                              width: MediaQuery.of(context).size.width / 1,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 17, 148, 255),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Sign up',
+                                  style: txtStyle(
+                                    18,
+                                    Colors.white,
+                                  ).copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                          const Gap(30), */
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Divider(
-                                thickness: 2,
-                                color: Colors.blueGrey.withOpacity(0.2),
+                          const Gap(30),
+                          /* GestureDetector(
+                              onTap: () {},
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(
+                                    Icons.facebook_sharp,
+                                    color: Colors.blue,
+                                  ),
+                                  const Gap(8),
+                                  Text(
+                                    'Log in with Facebook',
+                                    style: txtStyle(18, Colors.blue).copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            const Gap(35),
-                            const Text('OR'),
-                            const Gap(35),
-                            Expanded(
-                              child: Divider(
-                                thickness: 2,
-                                color: Colors.blueGrey.withOpacity(0.2),
+                            const Gap(30), */
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Divider(
+                                  thickness: 2,
+                                  color: Colors.blueGrey.withOpacity(0.2),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const Gap(30),
-                        DontHaveAnAccountButton(
-                          signColor: const Color.fromARGB(255, 25, 144, 240),
-                          isLoginScreen: false,
-                        ),
-                        const Gap(100)
-                      ],
-                    ),
-                  )
-                ],
+                              const Gap(35),
+                              const Text('OR'),
+                              const Gap(35),
+                              Expanded(
+                                child: Divider(
+                                  thickness: 2,
+                                  color: Colors.blueGrey.withOpacity(0.2),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Gap(30),
+                          DontHaveAnAccountButton(
+                            signColor: const Color.fromARGB(255, 25, 144, 240),
+                            isLoginScreen: false,
+                          ),
+                          const Gap(100)
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           );
