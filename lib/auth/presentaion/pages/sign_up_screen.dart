@@ -7,7 +7,7 @@ import 'package:insta_clone/auth/presentaion/widgets/input_field.dart';
 import 'package:insta_clone/core/common/shared/colors.dart';
 import 'package:insta_clone/core/common/shared_fun/csnack.dart';
 import 'package:insta_clone/core/common/shared_fun/txtstyl.dart';
-import 'package:insta_clone/home/presentation/homepage.dart';
+import 'package:insta_clone/wrapper.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -102,9 +102,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           if (state is AuthSuccess) {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (ctx) => Homepage(
-                  userId: state.userID,
-                ),
+                builder: (ctx) => const Wrapper(),
               ),
             );
           }

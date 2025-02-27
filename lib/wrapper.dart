@@ -19,8 +19,6 @@ class Wrapper extends StatefulWidget {
 }
 
 class _WrapperState extends State<Wrapper> {
-  final int _selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     if (MediaQuery.of(context).size.width <= 768) {
@@ -71,18 +69,15 @@ class _WrapperState extends State<Wrapper> {
         ),
       );
     } else {
-      return const Scaffold(
-          body: Row(
-        children: [
-          BigNavBar(),
-        ],
-      ));
+      return const BigNavBar();
     }
   }
 }
 
 class BigNavBar extends StatefulWidget {
-  const BigNavBar({super.key});
+  const BigNavBar({
+    super.key,
+  });
 
   @override
   State<BigNavBar> createState() => _BigNavBarState();
@@ -100,199 +95,226 @@ class _BigNavBarState extends State<BigNavBar> {
     final width = MediaQuery.of(context).size.width;
     const changeWidth = 1595;
     log(MediaQuery.of(context).size.width.toString());
-    return Container(
-      width: MediaQuery.of(context).size.width / 7,
-      decoration: const BoxDecoration(
-        border: Border(
-          right: BorderSide(
-            width: 1.5,
-            color: lightGrey,
-          ),
-        ),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
+    return Scaffold(
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            height: 250,
-            child: Image.asset(
-              'assets/images/logo.png',
-              width: 200,
+          Container(
+            width: width > changeWidth
+                ? MediaQuery.of(context).size.width / 7
+                : MediaQuery.of(context).size.width / 9,
+            decoration: const BoxDecoration(
+              border: Border(
+                right: BorderSide(
+                  width: 2,
+                  color: lightGrey,
+                ),
+              ),
             ),
-          ),
-          ListTile(
-            onTap: () {
-              setState(() {
-                selectedIndex = 0;
-              });
-            },
-            splashColor: Colors.white38,
-            selected: selectedIndex == 0,
-            selectedColor: Colors.black,
-            title: Row(
-              mainAxisAlignment: width > changeWidth
-                  ? MainAxisAlignment.start
-                  : MainAxisAlignment.center,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Icon(
-                  selectedIndex == 0 ? Icons.home_filled : CupertinoIcons.home,
-                  size: 40,
+                SizedBox(
+                  height: 250,
+                  child: width < changeWidth
+                      ? Image.asset(
+                          'assets/images/io.png',
+                          width: 40,
+                        )
+                      : Image.asset(
+                          'assets/images/logo.png',
+                          width: 200,
+                        ),
+                ),
+                ListTile(
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = 0;
+                    });
+                  },
+                  splashColor: Colors.white38,
+                  selected: selectedIndex == 0,
+                  selectedColor: Colors.black,
+                  title: Row(
+                    mainAxisAlignment: width > changeWidth
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        selectedIndex == 0
+                            ? Icons.home_filled
+                            : CupertinoIcons.home,
+                        size: 40,
+                      ),
+                      const Gap(10),
+                      width > changeWidth
+                          ? Text('Home',
+                              style: selectedIndex == 0
+                                  ? bigSelectedTextstyle
+                                  : bigNotSelectedTextstyle)
+                          : Container(),
+                    ],
+                  ),
                 ),
                 const Gap(10),
-                width > changeWidth
-                    ? Text('Home',
-                        style: selectedIndex == 0
-                            ? bigSelectedTextstyle
-                            : bigNotSelectedTextstyle)
-                    : Container(),
+                ListTile(
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = 1;
+                    });
+                  },
+                  splashColor: Colors.white38,
+                  selected: selectedIndex == 1,
+                  selectedColor: Colors.black,
+                  title: Row(
+                    mainAxisAlignment: width > changeWidth
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        selectedIndex == 1
+                            ? CupertinoIcons.search_circle_fill
+                            : CupertinoIcons.search,
+                        size: 40,
+                      ),
+                      const Gap(10),
+                      width > changeWidth
+                          ? Text('Search',
+                              style: selectedIndex == 1
+                                  ? bigSelectedTextstyle
+                                  : bigNotSelectedTextstyle)
+                          : Container(),
+                    ],
+                  ),
+                ),
+                const Gap(10),
+                ListTile(
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = 2;
+                    });
+                  },
+                  splashColor: Colors.white38,
+                  selected: selectedIndex == 2,
+                  selectedColor: Colors.black,
+                  title: Row(
+                    mainAxisAlignment: width > changeWidth
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        selectedIndex == 2
+                            ? CupertinoIcons.mail_solid
+                            : CupertinoIcons.mail,
+                        size: 40,
+                      ),
+                      const Gap(10),
+                      width > changeWidth
+                          ? Text('Message',
+                              style: selectedIndex == 2
+                                  ? bigSelectedTextstyle
+                                  : bigNotSelectedTextstyle)
+                          : Container(),
+                    ],
+                  ),
+                ),
+                const Gap(10),
+                ListTile(
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = 3;
+                    });
+                  },
+                  splashColor: Colors.white38,
+                  selected: selectedIndex == 3,
+                  selectedColor: Colors.black,
+                  title: Row(
+                    mainAxisAlignment: width > changeWidth
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        selectedIndex == 3
+                            ? CupertinoIcons.heart_fill
+                            : CupertinoIcons.heart,
+                        size: 40,
+                      ),
+                      const Gap(10),
+                      width > changeWidth
+                          ? Text('Notifiaction',
+                              style: selectedIndex == 3
+                                  ? bigSelectedTextstyle
+                                  : bigNotSelectedTextstyle)
+                          : Container(),
+                    ],
+                  ),
+                ),
+                const Gap(10),
+                ListTile(
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = 4;
+                    });
+                  },
+                  splashColor: Colors.white38,
+                  selected: selectedIndex == 4,
+                  selectedColor: Colors.black,
+                  title: Row(
+                    mainAxisAlignment: width > changeWidth
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        selectedIndex == 4
+                            ? CupertinoIcons.add_circled_solid
+                            : CupertinoIcons.add_circled,
+                        size: 40,
+                      ),
+                      const Gap(10),
+                      width > changeWidth
+                          ? Text(
+                              'Create',
+                              style: selectedIndex == 5
+                                  ? bigSelectedTextstyle
+                                  : bigNotSelectedTextstyle,
+                            )
+                          : Container(),
+                    ],
+                  ),
+                ),
+                const Spacer(),
+                ListTile(
+                  title: Row(
+                    mainAxisAlignment: width > changeWidth
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: MediaQuery.of(context).size.width / 50,
+                      ),
+                      const Gap(10),
+                      width > changeWidth
+                          ? Text('Profile', style: bigNotSelectedTextstyle)
+                          : Container(),
+                    ],
+                  ),
+                ),
+                const Gap(20)
               ],
             ),
           ),
-          const Gap(10),
-          ListTile(
-            onTap: () {
-              setState(() {
-                selectedIndex = 1;
-              });
-            },
-            splashColor: Colors.white38,
-            selected: selectedIndex == 1,
-            selectedColor: Colors.black,
-            title: Row(
-              mainAxisAlignment: width > changeWidth
-                  ? MainAxisAlignment.start
-                  : MainAxisAlignment.center,
-              children: [
-                Icon(
-                  selectedIndex == 1
-                      ? CupertinoIcons.search_circle_fill
-                      : CupertinoIcons.search,
-                  size: 40,
-                ),
-                const Gap(10),
-                width > changeWidth
-                    ? Text('Search',
-                        style: selectedIndex == 1
-                            ? bigSelectedTextstyle
-                            : bigNotSelectedTextstyle)
-                    : Container(),
-              ],
-            ),
-          ),
-          const Gap(10),
-          ListTile(
-            onTap: () {
-              setState(() {
-                selectedIndex = 2;
-              });
-            },
-            splashColor: Colors.white38,
-            selected: selectedIndex == 2,
-            selectedColor: Colors.black,
-            title: Row(
-              mainAxisAlignment: width > changeWidth
-                  ? MainAxisAlignment.start
-                  : MainAxisAlignment.center,
-              children: [
-                Icon(
-                  selectedIndex == 2
-                      ? CupertinoIcons.mail_solid
-                      : CupertinoIcons.mail,
-                  size: 40,
-                ),
-                const Gap(10),
-                width > changeWidth
-                    ? Text('Message',
-                        style: selectedIndex == 2
-                            ? bigSelectedTextstyle
-                            : bigNotSelectedTextstyle)
-                    : Container(),
-              ],
-            ),
-          ),
-          const Gap(10),
-          ListTile(
-            onTap: () {
-              setState(() {
-                selectedIndex = 3;
-              });
-            },
-            splashColor: Colors.white38,
-            selected: selectedIndex == 3,
-            selectedColor: Colors.black,
-            title: Row(
-              mainAxisAlignment: width > changeWidth
-                  ? MainAxisAlignment.start
-                  : MainAxisAlignment.center,
-              children: [
-                Icon(
-                  selectedIndex == 3
-                      ? CupertinoIcons.heart_fill
-                      : CupertinoIcons.heart,
-                  size: 40,
-                ),
-                const Gap(10),
-                width > changeWidth
-                    ? Text('Notifiaction',
-                        style: selectedIndex == 3
-                            ? bigSelectedTextstyle
-                            : bigNotSelectedTextstyle)
-                    : Container(),
-              ],
-            ),
-          ),
-          const Gap(10),
-          ListTile(
-            onTap: () {
-              setState(() {
-                selectedIndex = 4;
-              });
-            },
-            splashColor: Colors.white38,
-            selected: selectedIndex == 4,
-            selectedColor: Colors.black,
-            title: Row(
-              mainAxisAlignment: width > changeWidth
-                  ? MainAxisAlignment.start
-                  : MainAxisAlignment.center,
-              children: [
-                Icon(
-                  selectedIndex == 4
-                      ? CupertinoIcons.add_circled_solid
-                      : CupertinoIcons.add_circled,
-                  size: 40,
-                ),
-                const Gap(10),
-                width > changeWidth
-                    ? Text(
-                        'Create',
-                        style: selectedIndex == 5
-                            ? bigSelectedTextstyle
-                            : bigNotSelectedTextstyle,
-                      )
-                    : Container(),
-              ],
-            ),
-          ),
-          const Spacer(),
-          ListTile(
-            title: Row(
-              mainAxisAlignment: width > changeWidth
-                  ? MainAxisAlignment.start
-                  : MainAxisAlignment.center,
-              children: [
-                const CircleAvatar(
-                  radius: 30,
-                ),
-                const Gap(10),
-                width > changeWidth
-                    ? Text('Profile', style: bigNotSelectedTextstyle)
-                    : Container(),
-              ],
-            ),
-          ),
-          const Gap(20)
+          if (selectedIndex == 0)
+            Homepage(userId: Supabase.instance.client.auth.currentUser!.id),
+          if (selectedIndex == 1) const Test(),
+          if (selectedIndex == 2) const Test(),
+          if (selectedIndex == 3) const Test(),
+          if (selectedIndex == 4) const Test(),
+          Container(
+            width: MediaQuery.of(context).size.width / 10,
+            height: 100,
+            color: Colors.amber,
+          )
         ],
       ),
     );

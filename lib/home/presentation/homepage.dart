@@ -83,53 +83,51 @@ class Homepage extends StatelessWidget {
       );
     } else {
       log('in the home');
-      return Expanded(
-        child: Center(
-          child: Column(
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 1.5,
-                height: 100,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 10,
-                      right: 10,
-                      top: 8,
-                      bottom: 8,
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        for (int i = 0; i <= 8; i++)
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: CircleAvatar(
-                              radius: 40,
-                            ),
-                          ),
-                      ],
-                    ),
+      return Center(
+        child: Column(
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 1.5,
+              height: 100,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 10,
+                    right: 10,
+                    top: 8,
+                    bottom: 8,
                   ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 3.2,
-                  height: 100,
-                  decoration: const BoxDecoration(),
-                  child: ListView(
-                    children: const [
-                      Post(),
-                      Post(),
-                      Post(),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      for (int i = 0; i <= 8; i++)
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: CircleAvatar(
+                            radius: 40,
+                          ),
+                        ),
                     ],
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                width: MediaQuery.of(context).size.width / 3.2,
+                height: 100,
+                decoration: const BoxDecoration(),
+                child: ListView(
+                  children: const [
+                    Post(),
+                    Post(),
+                    Post(),
+                  ],
+                ),
+              ),
+            )
+          ],
         ),
       );
     }
