@@ -1,44 +1,43 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:image_picker_for_web/image_picker_for_web.dart';
+import 'package:photo_manager/photo_manager.dart';
 
 abstract interface class ImagePickDatasource {
-  Future<File?> selectImage();
+  Future<File?> getWebImage();
+  Future loadPhoneAlbums(RequestType requestType);
+  Future loadPhoneAssets(AssetPathEntity selectedAlbums);
 }
 
-class ImagePickDatasourceImpl implements ImagePickDatasource {
-  ImagePickDatasourceImpl({
-    required this.imagePicker,
-    required this.webImagePicker,
-  });
+class ImagePickDatatsourceImpl implements ImagePickDatasource {
+  const ImagePickDatatsourceImpl();
 
-  final ImagePicker imagePicker;
-  final ImagePickerPlugin webImagePicker;
   @override
-  Future<File?> selectImage() async {
-    if (kIsWeb) {
-      final pickedImage =
-          await webImagePicker.getImageFromSource(source: ImageSource.gallery);
+  Future loadPhoneAlbums(RequestType requestType) async {
+    var permission = await PhotoManager.requestPermissionExtend();
 
-      if (pickedImage == null) {
-        return null;
-      }
+    List<AssetPathEntity> albumList = [];
 
-      return File(pickedImage.path);
+    if (permission.isAuth) {
+      albumList = await PhotoManager.getAssetPathList(
+        type: requestType,
+      );
+    } else {
+      PhotoManager.openSetting();
     }
+    return albumList;
+  }
 
-    if (Platform.isAndroid) {
-      final pickedimage =
-          await imagePicker.pickImage(source: ImageSource.gallery);
+  @override
+  Future loadPhoneAssets(AssetPathEntity selectedAlbums) async {
+    List<AssetEntity> assetsList = await selectedAlbums.getAssetListRange(
+        start: 0, end: await selectedAlbums.assetCountAsync);
 
-      if (pickedimage == null) {
-        return null;
-      } else {
-        return File(pickedimage.path);
-      }
-    }
-    return null;
+    return assetsList;
+  }
+
+  @override
+  Future<File?> getWebImage() {
+    // TODO: implement getWebImage
+    throw UnimplementedError();
   }
 }

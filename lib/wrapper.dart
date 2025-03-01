@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:insta_clone/core/common/shared/colors.dart';
@@ -8,6 +7,7 @@ import 'package:insta_clone/core/common/shared_fun/txtstyl.dart';
 import 'package:insta_clone/home/presentation/homepage.dart';
 import 'package:insta_clone/test.dart';
 import 'package:insta_clone/upload/presentation/upload_page.dart';
+import 'package:insta_clone/upload/presentation/upload_page_web.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -44,7 +44,7 @@ class _WrapperState extends State<Wrapper> {
               ),
             ),
             PersistentTabConfig(
-              screen: const UploadPage(),
+              screen: kIsWeb ? const UploadPageWeb() : const UploadPage(),
               item: ItemConfig(
                 icon: const Icon(Icons.add_circle_outline_outlined),
               ),
@@ -94,15 +94,16 @@ class _BigNavBarState extends State<BigNavBar> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     const changeWidth = 1595;
-    log(MediaQuery.of(context).size.width.toString());
     return Scaffold(
       body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: selectedIndex == 0
+            ? MainAxisAlignment.spaceBetween
+            : MainAxisAlignment.start,
         children: [
           Container(
             width: width > changeWidth
-                ? MediaQuery.of(context).size.width / 7
-                : MediaQuery.of(context).size.width / 9,
+                ? MediaQuery.of(context).size.width / 6
+                : MediaQuery.of(context).size.width / 8,
             decoration: const BoxDecoration(
               border: Border(
                 right: BorderSide(
@@ -305,16 +306,20 @@ class _BigNavBarState extends State<BigNavBar> {
             ),
           ),
           if (selectedIndex == 0)
-            Homepage(userId: Supabase.instance.client.auth.currentUser!.id),
+            Row(
+              children: [
+                Homepage(userId: Supabase.instance.client.auth.currentUser!.id),
+                Container(
+                  width: MediaQuery.of(context).size.width / 10,
+                  height: 100,
+                  color: Colors.amber,
+                ),
+              ],
+            ),
           if (selectedIndex == 1) const Test(),
           if (selectedIndex == 2) const Test(),
           if (selectedIndex == 3) const Test(),
-          if (selectedIndex == 4) const Test(),
-          Container(
-            width: MediaQuery.of(context).size.width / 10,
-            height: 100,
-            color: Colors.amber,
-          )
+          if (selectedIndex == 4) const UploadPageWeb(),
         ],
       ),
     );
